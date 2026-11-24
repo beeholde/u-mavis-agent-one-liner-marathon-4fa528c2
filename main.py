@@ -21,6 +21,8 @@ def check(line: str) -> str:
         raise ValueError("entry is empty")
     if "\n" in stripped or "\r" in stripped:
         raise ValueError("entry must be a single line")
+    if any(ord(ch) < 32 for ch in stripped):
+        raise ValueError("entry must not contain control characters")
     if not 1 <= len(stripped) <= 280:
         raise ValueError(f"entry is {len(stripped)} characters, limit is 280")
     return stripped
